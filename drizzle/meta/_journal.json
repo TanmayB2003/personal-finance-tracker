@@ -15,6 +15,13 @@
       "when": 1743403663674,
       "tag": "0001_fair_bullseye",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1743839013122,
+      "tag": "0002_salty_aaron_stack",
+      "breakpoints": true
     }
   ]
 }
