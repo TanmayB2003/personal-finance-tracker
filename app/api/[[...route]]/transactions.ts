@@ -182,6 +182,13 @@ const app = new Hono()
 					id: true,
 				}),
 			),
+			(result, c) => {
+				if (!result.success) {
+					console.error("Zod Error:", result.error.format());
+					return c.json({ error: "Invalid input", details: result.error.format() }, 400);
+				}
+				return;
+			}
 		),
 		async (c) => {
 			const auth = getAuth(c);
