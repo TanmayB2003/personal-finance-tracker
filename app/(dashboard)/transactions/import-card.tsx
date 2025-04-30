@@ -1,7 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Plus } from "lucide-react";
-import { UploadButton } from "./upload-button";
 import { useState } from "react";
 import { ImportTable } from "./import-table";
 import { convertAmountToMiliunits } from "@/lib/utils";
@@ -19,6 +17,7 @@ interface SelectedColumnsState {
 type Props = {
   data: string[][];
   onCancel: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSubmit: (data: any) => void;
 };
 
@@ -79,6 +78,7 @@ export const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
     };
 
     const arrayOfData = mappedData.body.map((row) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return row.reduce((acc: any, cell, index) => {
         const header = mappedData.headers[index];
         if (header !== null) {
@@ -98,7 +98,7 @@ export const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
           }
         }
       } catch (e) {
-        console.warn("Invalid date:", item.date);
+        console.warn("Invalid date:", item.date, e);
       }
 
       return {

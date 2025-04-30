@@ -43,28 +43,32 @@ export const RadialVariant = ({ data }: Props) => {
           verticalAlign="bottom"
           align="right"
           iconType="circle"
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           content={({ payload }: any) => {
             return (
               <ul className="flex flex-col space-y-2">
-                {payload.map((entry: any, index: number) => (
-                  <li
-                    key={`item-${index}`}
-                    className="flex items-center space-x-2"
-                  >
-                    <span
-                      className="size-2 rounded-full"
-                      style={{ backgroundColor: entry.color }}
-                    />
-                    <div className="space-x-1">
-                      <span className="text-sm text-muted-foreground">
-                        {entry.value}
-                      </span>
-                      <span className="text-sm">
-                        {formatCurrency(entry.payload.value)}
-                      </span>
-                    </div>
-                  </li>
-                ))}
+                {
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  payload.map((entry: any, index: number) => (
+                    <li
+                      key={`item-${index}`}
+                      className="flex items-center space-x-2"
+                    >
+                      <span
+                        className="size-2 rounded-full"
+                        style={{ backgroundColor: entry.color }}
+                      />
+                      <div className="space-x-1">
+                        <span className="text-sm text-muted-foreground">
+                          {entry.value}
+                        </span>
+                        <span className="text-sm">
+                          {formatCurrency(entry.payload.value)}
+                        </span>
+                      </div>
+                    </li>
+                  ))
+                }
               </ul>
             );
           }}

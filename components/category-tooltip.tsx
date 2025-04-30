@@ -1,9 +1,16 @@
-import { format } from "date-fns";
 import { formatCurrency } from "@/lib/utils";
 import { Separator } from "./ui/separator";
+import { TooltipProps } from "recharts";
+import {
+  ValueType,
+  NameType,
+} from "recharts/types/component/DefaultTooltipContent";
 
-export const CategoryTooltip = ({ active, payload }: any) => {
-  if (!active) return null;
+export const CategoryTooltip = ({
+  active,
+  payload,
+}: TooltipProps<ValueType, NameType>) => {
+  if (!active || !payload || !payload.length) return null;
 
   const name = payload[0].payload.name;
   const value = payload[0].value;
@@ -21,7 +28,7 @@ export const CategoryTooltip = ({ active, payload }: any) => {
             <p className="text-sm text-muted-foreground">Expenses</p>
           </div>
           <p className="text-sm text-right font-medium">
-            {formatCurrency(value)}
+            {formatCurrency(value as number)}
           </p>
         </div>
       </div>

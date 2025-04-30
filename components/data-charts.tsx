@@ -2,9 +2,14 @@
 import { useGetSummary } from "@/features/summary/api/use-get-summary";
 import { Chart, ChartLoading } from "./chart";
 import { SpendingPie, SpendingPieLoading } from "./spending-pie";
+import { useSearchParams } from "next/navigation";
 
 export const DataCharts = () => {
-  const { data, isLoading } = useGetSummary();
+  const params = useSearchParams();
+  const from = params.get("from") || "";
+  const to = params.get("to") || "";
+  const accountId = params.get("accountId") || "";
+  const { data, isLoading } = useGetSummary({ from, to, accountId });
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 lg:grid-cols-6 gap-8">

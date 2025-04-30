@@ -21,7 +21,7 @@ export const AccountFilter = () => {
   const from = params.get("from") || "";
   const to = params.get("to") || "";
 
-  const { isLoading: isLoadingSummary } = useGetSummary();
+  const { isLoading: isLoadingSummary } = useGetSummary({from, to, accountId});
   const { data: accounts, isLoading: isLoadingAccounts } = useGetAccounts();
 
   const onChange = (newValue: string) => {

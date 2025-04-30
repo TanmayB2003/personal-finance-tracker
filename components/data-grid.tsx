@@ -8,10 +8,12 @@ import { DataCard, DataCardLoading } from "./data-card";
 import { FaArrowTrendUp, FaArrowTrendDown } from "react-icons/fa6";
 
 export const DataGrid = () => {
-  const { data, isLoading } = useGetSummary();
   const params = useSearchParams();
-  const to = params.get("to") || undefined;
-  const from = params.get("from") || undefined;
+  const to = params.get("to") || "";
+  const from = params.get("from") || "";
+  const accountId = params.get("accountId") || "";
+
+  const { data, isLoading } = useGetSummary({ from, to, accountId });
 
   const dateRangeLabel = formatDateRange({ to, from });
 

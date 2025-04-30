@@ -9,7 +9,7 @@ import summary from "./summary";
 export const runtime = 'edge'
 
 const app = new Hono().basePath('/api')
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const routes = app
   .route("/summary", summary)
   .route("/accounts", accounts)

@@ -16,6 +16,7 @@ import { transactions as transactionSchema } from "@/db/schema";
 import { useSelectAccount } from "@/features/accounts/hooks/use-select-account";
 import { toast } from "sonner";
 import { useBulkCreateTransactions } from "@/features/transactions/api/use-bulk-create-transactions";
+import { useSearchParams } from "next/navigation";
 
 enum VARIANTS {
   LIST = "LIST",
@@ -45,7 +46,13 @@ const TransactionsPage = () => {
 
   const newTransaction = useNewTransaction();
   const createTransactions = useBulkCreateTransactions();
-  const transactionsQuery = useGetTransactions();
+
+  const params = useSearchParams();
+  const from = params.get("from") || "";
+  const to = params.get("to") || "";
+  const accountId = params.get("accountId") || "";
+  const transactionsQuery = useGetTransactions({from,to,accountId});
+  
   const deleteTransactions = useBulkDeleteTransactions();
   const transactions = transactionsQuery.data || [];
 
