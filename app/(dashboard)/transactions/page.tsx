@@ -9,7 +9,7 @@ import { useGetTransactions } from "@/features/transactions/api/use-get-transact
 import { Skeleton } from "@/components/ui/skeleton";
 import { useBulkDeleteTransactions } from "@/features/transactions/api/use-bulk-delete-transactions";
 import { useNewTransaction } from "@/features/transactions/hooks/use-new-transaction";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { UploadButton } from "./upload-button";
 import { ImportCard } from "./import-card";
 import { transactions as transactionSchema } from "@/db/schema";
@@ -29,7 +29,7 @@ const INITIAL_IMPORT_RESULTS = {
   meta: {},
 };
 
-const TransactionsPage = () => {
+const TransactionsPageContent = () => {
   const [AccountDialog, confirm] = useSelectAccount();
   const [variant, setVariant] = useState<VARIANTS>(VARIANTS.LIST);
   const [importResults, setImportResults] = useState(INITIAL_IMPORT_RESULTS);
@@ -51,8 +51,8 @@ const TransactionsPage = () => {
   const from = params.get("from") || "";
   const to = params.get("to") || "";
   const accountId = params.get("accountId") || "";
-  const transactionsQuery = useGetTransactions({from,to,accountId});
-  
+  const transactionsQuery = useGetTransactions({ from, to, accountId });
+
   const deleteTransactions = useBulkDeleteTransactions();
   const transactions = transactionsQuery.data || [];
 
@@ -143,6 +143,14 @@ const TransactionsPage = () => {
         </CardContent>
       </Card>
     </div>
+  );
+};
+
+const TransactionsPage = () => {
+  return (
+    <Suspense>
+      <TransactionsPageContent />
+    </Suspense>
   );
 };
 
