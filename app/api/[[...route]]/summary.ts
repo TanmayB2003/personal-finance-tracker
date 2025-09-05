@@ -49,8 +49,10 @@ const app = new Hono()
 			) {
 				return await db
 					.select({
-						income: sql`SUM(CASE WHEN ${transactions.amount} >= 0 THEN ${transactions.amount} ELSE 0 END)`.mapWith(Number),
-						expenses: sql`SUM(CASE WHEN ${transactions.amount} < 0 THEN ABS(${transactions.amount}) ELSE 0 END)`.mapWith(Number),
+						income: sql`SUM(CASE WHEN ${transactions.amount} > 0 AND LOWER(${transactions.payee}) <> 'self' 
+									THEN ${transactions.amount} ELSE 0 END)`.mapWith(Number),
+						expenses: sql`SUM(CASE WHEN ${transactions.amount} < 0 AND LOWER(${transactions.payee}) <> 'self' 
+									THEN ABS(${transactions.amount}) ELSE 0 END)`.mapWith(Number),
 						remaining: sum(transactions.amount).mapWith(Number),
 					})
 					.from(transactions)
