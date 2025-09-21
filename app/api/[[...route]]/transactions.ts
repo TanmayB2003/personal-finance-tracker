@@ -7,7 +7,7 @@ import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
 import { createId } from "@paralleldrive/cuid2"
 import { z } from "zod";
 import { accounts, categories, insertTransactionSchema, transactions } from "@/db/schema";
-import { parse, subDays } from "date-fns";
+import { parse } from "date-fns";
 
 const app = new Hono()
 	.get(
